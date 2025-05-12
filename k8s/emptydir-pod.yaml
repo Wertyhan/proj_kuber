@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-with-log-collector
+spec:
+  volumes:
+    - name: shared-logs
+      emptyDir: {}
+  containers:
+    - name: fastapi-app
+      image: myregistry/my_project_app:latest
+      ports:
+        - containerPort: 8000
+      volumeMounts:
+        - name: shared-logs
+          mountPath: /var/log/app
+      env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: DATABASE_URL
+    - name: log-collector
+      image: busybox
+      command: ["sh", "-c", "tail -F /logs/app.log"]
+      volumeMounts:
+        - name: shared-logs
+          mountPath: /logs
