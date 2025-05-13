@@ -1,4 +1,4 @@
-=== K8s Deployment Log: Tue, May 13, 2025 12:40:04 AM ===
+=== K8s Deployment Log: Tue, May 13, 2025 10:46:48 AM ===
 Deleting k8s/fastapi-deployment.yaml...
 deployment.apps "fastapi-deployment" deleted
 service "fastapi-service" deleted
@@ -24,18 +24,18 @@ pod/cache-consumer created
 Waiting for pods to be ready...
 pod/cache-consumer condition met
 pod/cache-producer condition met
-timed out waiting for the condition on pods/fastapi-deployment-74c4f7fcb5-t97b6
-timed out waiting for the condition on pods/fastapi-deployment-74c4f7fcb5-z9gbw
-timed out waiting for the condition on pods/postgres-deployment-79f67dc8b6-xddtn
+pod/fastapi-deployment-74c4f7fcb5-97hvc condition met
+pod/fastapi-deployment-74c4f7fcb5-f77wn condition met
+pod/postgres-deployment-695d6f597d-ssmd4 condition met
 Current status of pods and services:
-NAME                                       READY   STATUS             RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
-pod/cache-consumer                         1/1     Running            0          91s   10.244.0.55   minikube   <none>           <none>
-pod/cache-producer                         1/1     Running            0          91s   10.244.0.54   minikube   <none>           <none>
-pod/fastapi-deployment-74c4f7fcb5-t97b6    0/1     ImagePullBackOff   0          91s   10.244.0.53   minikube   <none>           <none>
-pod/fastapi-deployment-74c4f7fcb5-z9gbw    0/1     ImagePullBackOff   0          91s   10.244.0.52   minikube   <none>           <none>
-pod/postgres-deployment-79f67dc8b6-xddtn   1/1     Running            0          91s   10.244.0.51   minikube   <none>           <none>
+NAME                                       READY   STATUS    RESTARTS   AGE   IP             NODE       NOMINATED NODE   READINESS GATES
+pod/cache-consumer                         1/1     Running   0          8s    10.244.0.115   minikube   <none>           <none>
+pod/cache-producer                         1/1     Running   0          8s    10.244.0.114   minikube   <none>           <none>
+pod/fastapi-deployment-74c4f7fcb5-97hvc    1/1     Running   0          8s    10.244.0.112   minikube   <none>           <none>
+pod/fastapi-deployment-74c4f7fcb5-f77wn    1/1     Running   0          8s    10.244.0.113   minikube   <none>           <none>
+pod/postgres-deployment-695d6f597d-ssmd4   1/1     Running   0          8s    10.244.0.111   minikube   <none>           <none>
 
-NAME                       TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE    SELECTOR
-service/fastapi-service    LoadBalancer   10.109.17.73   <pending>     80:30409/TCP   91s    app=fastapi
-service/kubernetes         ClusterIP      10.96.0.1      <none>        443/TCP        3h7m   <none>
-service/postgres-service   ClusterIP      10.110.16.69   <none>        5432/TCP       91s    app=postgres
+NAME                       TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+service/fastapi-service    LoadBalancer   10.104.134.182   <pending>     80:31379/TCP   8s    app=fastapi
+service/kubernetes         ClusterIP      10.96.0.1        <none>        443/TCP        13h   <none>
+service/postgres-service   ClusterIP      10.111.125.116   <none>        5432/TCP       9s    app=postgres

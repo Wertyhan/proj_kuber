@@ -16,8 +16,6 @@ spec:
         - name: postgres
           image: postgres:15
           env:
-            - name: POSTGRES_DB
-              value: "database"
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
