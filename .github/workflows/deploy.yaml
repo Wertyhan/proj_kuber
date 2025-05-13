@@ -1,42 +1,29 @@
-name: Build and Deploy
+name: Deploy to Render
 
 on:
   push:
     branches:
       - main
 
-env:
-  IMAGE_NAME: my_project_app
-  IMAGE_TAG: latest
-  REGISTRY: docker.io
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: 🐳 Login to DockerHub
+      - name: Log in to DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: 🏗️ Build Docker image
+      - name: Build and push Docker image
         run: |
-          docker build -t $REGISTRY/wertyhan/$IMAGE_NAME:$IMAGE_TAG .
+          docker build -t ${{ secrets.REGISTRY_USERNAME }}/my_project_app:latest .
+          docker push ${{ secrets.REGISTRY_USERNAME }}/my_project_app:latest
 
-      - name: 📤 Push Docker image
+      - name: Deploy to Render (via deploy hook)
         run: |
-          docker push $REGISTRY/wertyhan/$IMAGE_NAME:$IMAGE_TAG
-
-      - name: 📂 Set up kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: "latest"
-
-      - name: 📦 Deploy to Kubernetes
-        run: |
-          kubectl apply -f k8s/
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
